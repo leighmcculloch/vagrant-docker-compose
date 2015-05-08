@@ -1,0 +1,7 @@
+Gemfile.lock
+coverage
+.ruby-version
+*.sublime-*
+*.gem
+pkg
+.vagrant
