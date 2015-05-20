@@ -8,7 +8,7 @@ module VagrantPlugins
       def initialize(machine, config, installer = nil, docker_compose = nil)
         super(machine, config)
 
-        @installer = installer || Installer.new(@machine)
+        @installer = installer || Installer.new(@machine, @config)
         @docker_compose = docker_compose || DockerCompose.new(@machine, @config)
       end
 

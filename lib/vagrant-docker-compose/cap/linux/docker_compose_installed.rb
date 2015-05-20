@@ -3,9 +3,9 @@ module VagrantPlugins
     module Cap
       module Linux
         module DockerComposeInstalled
-          def self.docker_compose_installed(machine)
+          def self.docker_compose_installed(machine, config)
             paths = [
-              "/usr/local/bin/docker-compose"
+              config.executable
             ]
 
             paths.all? do |p|
