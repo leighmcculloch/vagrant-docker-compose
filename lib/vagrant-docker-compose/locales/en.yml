@@ -1,6 +1,7 @@
 en:
   errors:
     yml_must_be_absolute: Docker Compose YML path must be absolute!
+    install_failed: Docker Compose installation failed
   not_supported_on_guest: Not supported on the guest operating system
   checking_installation: Checking for Docker Compose installation...
   installing: Installing Docker Compose
