@@ -13,7 +13,7 @@ module VagrantPlugins
       end
 
       def finalize!
-        @executable = '/usr/local/bin/docker-compose' if @executable == UNSET_VALUE
+        @executable = "/usr/local/bin/docker-compose" if @executable == UNSET_VALUE
       end
 
     end
