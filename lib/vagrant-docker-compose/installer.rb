@@ -17,6 +17,8 @@ module VagrantPlugins
             raise DockerComposeError, :install_failed
           end
         end
+
+        @machine.guest.capability(:docker_compose_set_project_name, @config)
       end
     end
   end
