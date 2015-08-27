@@ -17,7 +17,7 @@ module VagrantPlugins
       def finalize!
         @executable = "/usr/local/bin/docker-compose" if @executable == UNSET_VALUE
         @project_name = nil if @project_name == UNSET_VALUE
-        @compose_version = "1.3.1" if @compose_version == UNSET_VALUE
+        @compose_version = "1.4.0" if @compose_version == UNSET_VALUE
       end
     end
   end
