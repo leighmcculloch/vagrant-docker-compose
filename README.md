@@ -59,7 +59,7 @@ docker-compose -f [yml] up
 
 ### Other configs
 
-* `compose_version` – defaults to `1.4.0`.
+* `compose_version` – defaults to `1.5.0`.
 * `project_name` – compose will default to naming the project `vagrant`.
 * `executable` – the location the executable will be stored, defaults to `/usr/local/bin/docker-compose`.
 
