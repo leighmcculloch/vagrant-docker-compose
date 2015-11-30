@@ -35,7 +35,7 @@ end
 Equivalent to running:
 
 ```bash
-docker-compose -f [yml] up
+docker-compose -f [yml] up -d
 ```
 
 ### To install, rebuild and run docker-compose on `vagrant up`
@@ -52,16 +52,39 @@ end
 Equivalent to running:
 
 ```bash
-docker-compose -f [yml] rm
+docker-compose -f [yml] rm --force
 docker-compose -f [yml] build
-docker-compose -f [yml] up
+docker-compose -f [yml] up -d
 ```
+
+### To install, rebuild and run docker-compose with options on `vagrant up`
+
+```ruby
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/trusty64"
+
+  config.vm.provision :docker
+  config.vm.provision :docker_compose, yml: "/vagrant/docker-compose.yml", rebuild: true,
+    options: "--x-networking", command_options: { rm: "", up: "-d --timeout 20"}, run: "always"
+end
+```
+
+Equivalent to running:
+
+```bash
+docker-compose --x-networking -f [yml] rm
+docker-compose --x-networking -f [yml] build
+docker-compose --x-networking -f [yml] up -d --timeout 20
+```
+
 
 ### Other configs
 
 * `compose_version` – defaults to `1.5.0`.
 * `project_name` – compose will default to naming the project `vagrant`.
 * `executable` – the location the executable will be stored, defaults to `/usr/local/bin/docker-compose`.
+* `options` - a `String` that's included as the first arguments when calling the docker-compose executable, you can use this to pass arbitrary options/flags to docker-compose, default to `nil`.
+* `command_options` - a `Hash` of docker-compose commands to options, you can use this to pass arbitrary options/flags to the docker-compose commands, defaults to: `{ rm: "--force", up: "-d" }`.
 
 ## Example
 
