@@ -6,7 +6,7 @@ module VagrantPlugins
         up: "-d"
       }
 
-      attr_accessor :yml, :rebuild, :project_name, :executable, :compose_version, :options, :command_options
+      attr_accessor :yml, :rebuild, :project_name, :executable_symlink_path, :executable_install_path, :compose_version, :options, :command_options
 
       def yml=(yml)
         files = yml.is_a?(Array) ? yml : [yml]
@@ -17,17 +17,19 @@ module VagrantPlugins
       end
 
       def initialize
-        @executable = UNSET_VALUE
         @project_name = UNSET_VALUE
         @compose_version = UNSET_VALUE
+        @executable_symlink_path = UNSET_VALUE
+        @executable_install_path = UNSET_VALUE
         @options = UNSET_VALUE
         @command_options = UNSET_VALUE
       end
 
       def finalize!
-        @executable = "/usr/local/bin/docker-compose" if @executable == UNSET_VALUE
         @project_name = nil if @project_name == UNSET_VALUE
         @compose_version = "1.6.2" if @compose_version == UNSET_VALUE
+        @executable_symlink_path = "/usr/local/bin/docker-compose" if @executable_symlink_path == UNSET_VALUE
+        @executable_install_path = "#{@executable_symlink_path}-#{@compose_version}" if @executable_install_path == UNSET_VALUE
         @options = nil if @options == UNSET_VALUE
         @command_options = {} if @command_options == UNSET_VALUE
         @command_options = DEFAULT_COMMAND_OPTIONS.merge(@command_options)
