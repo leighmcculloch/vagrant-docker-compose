@@ -1,0 +1,10 @@
+app:
+  build: ./app
+  links:
+    - redis
+  ports:
+    - "8080:8080"
+  volumes:
+    - ./app/:/app/
+redis:
+  image: redis

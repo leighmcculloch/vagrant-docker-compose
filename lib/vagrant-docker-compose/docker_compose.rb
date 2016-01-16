@@ -11,7 +11,7 @@ module VagrantPlugins
       def build
         @machine.ui.detail(I18n.t(:docker_compose_build))
         @machine.communicate.tap do |comm|
-          comm.sudo("#{@config.executable} #{@config.options} -f \"#{@config.yml}\" build #{@config.command_options[:build]}") do |type, data|
+          comm.sudo("#{@config.executable} #{@config.options} #{cli_options_for_yml_file} build #{@config.command_options[:build]}") do |type, data|
             handle_comm(type, data)
           end
         end
@@ -20,7 +20,7 @@ module VagrantPlugins
       def rm
         @machine.ui.detail(I18n.t(:docker_compose_rm))
         @machine.communicate.tap do |comm|
-          comm.sudo("#{@config.executable} #{@config.options} -f \"#{@config.yml}\" rm #{@config.command_options[:rm]}") do |type, data|
+          comm.sudo("#{@config.executable} #{@config.options} #{cli_options_for_yml_file} rm #{@config.command_options[:rm]}") do |type, data|
             handle_comm(type, data)
           end
         end
@@ -29,7 +29,7 @@ module VagrantPlugins
       def up
         @machine.ui.detail(I18n.t(:docker_compose_up))
         @machine.communicate.tap do |comm|
-          comm.sudo("#{@config.executable} #{@config.options} -f \"#{@config.yml}\" up #{@config.command_options[:up]}") do |type, data|
+          comm.sudo("#{@config.executable} #{@config.options} #{cli_options_for_yml_file} up #{@config.command_options[:up]}") do |type, data|
             handle_comm(type, data)
           end
         end
@@ -44,6 +44,13 @@ module VagrantPlugins
         when :stdout; @machine.ui.detail(data)
         when :stderr; @machine.ui.error(data)
         end
+      end
+
+      private
+
+      def compose_file_cli_options
+        files = @config.yml.is_a?(Array) ? @config.yml : [@config.yml]
+        files.map { |file| "-f \"#{file}\"" }.join(" ")
       end
     end
   end
