@@ -9,7 +9,10 @@ module VagrantPlugins
       attr_accessor :yml, :rebuild, :project_name, :executable, :compose_version, :options, :command_options
 
       def yml=(yml)
-        raise DockerComposeError, :yml_must_be_absolute if !Pathname.new(yml).absolute?
+        files = yml.is_a?(Array) ? yml : [yml]
+        files.each do |file|
+          raise DockerComposeError, :yml_must_be_absolute if !Pathname.new(file).absolute?
+        end
         @yml = yml
       end
 
