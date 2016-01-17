@@ -1,5 +1,5 @@
 module VagrantPlugins
   module DockerComposeProvisioner
-    VERSION = "0.0.8"
+    VERSION = "0.0.9"
   end
 end
