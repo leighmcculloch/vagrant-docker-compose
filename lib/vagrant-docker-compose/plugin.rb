@@ -24,6 +24,11 @@ module VagrantPlugins
         Cap::Linux::DockerComposeInstall
       end
 
+      guest_capability("linux", "docker_compose_symlink") do
+        require_relative "cap/linux/docker_compose_symlink"
+        Cap::Linux::DockerComposeSymlink
+      end
+
       guest_capability("linux", "docker_compose_set_project_name") do
         require_relative "cap/linux/docker_compose_set_project_name"
         Cap::Linux::DockerComposeSetProjectName

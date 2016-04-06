@@ -5,7 +5,7 @@ module VagrantPlugins
         module DockerComposeInstalled
           def self.docker_compose_installed(machine, config)
             paths = [
-              config.executable
+              config.executable_install_path
             ]
 
             paths.all? do |p|
