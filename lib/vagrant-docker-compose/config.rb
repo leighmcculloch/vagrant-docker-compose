@@ -27,7 +27,7 @@ module VagrantPlugins
       def finalize!
         @executable = "/usr/local/bin/docker-compose" if @executable == UNSET_VALUE
         @project_name = nil if @project_name == UNSET_VALUE
-        @compose_version = "1.5.0" if @compose_version == UNSET_VALUE
+        @compose_version = "1.6.2" if @compose_version == UNSET_VALUE
         @options = nil if @options == UNSET_VALUE
         @command_options = {} if @command_options == UNSET_VALUE
         @command_options = DEFAULT_COMMAND_OPTIONS.merge(@command_options)
