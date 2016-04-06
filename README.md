@@ -104,7 +104,7 @@ docker-compose --x-networking -f [yml] up -d --timeout 20
 ### Other configs
 
 * `yml` – one or more [Compose files](https://docs.docker.com/compose/compose-file/) (YAML), may be a `String` for a single file, or `Array` for multiple.
-* `compose_version` – defaults to `1.5.0`.
+* `compose_version` – defaults to `1.6.2`.
 * `project_name` – compose will default to naming the project `vagrant`.
 * `executable` – the location the executable will be stored, defaults to `/usr/local/bin/docker-compose`.
 * `options` - a `String` that's included as the first arguments when calling the docker-compose executable, you can use this to pass arbitrary options/flags to docker-compose, default to `nil`.
