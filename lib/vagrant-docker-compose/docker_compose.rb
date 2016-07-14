@@ -11,7 +11,7 @@ module VagrantPlugins
       def build
         @machine.ui.detail(I18n.t(:docker_compose_build))
         @machine.communicate.tap do |comm|
-          comm.sudo("#{@config.executable_install_path} #{@config.options} #{cli_options_for_yml_file} build #{@config.command_options[:build]}") do |type, data|
+          comm.sudo("#{@config.env_s} #{@config.executable_install_path} #{@config.options} #{cli_options_for_yml_file} build #{@config.command_options[:build]}") do |type, data|
             handle_comm(type, data)
           end
         end
@@ -20,7 +20,7 @@ module VagrantPlugins
       def rm
         @machine.ui.detail(I18n.t(:docker_compose_rm))
         @machine.communicate.tap do |comm|
-          comm.sudo("#{@config.executable_install_path} #{@config.options} #{cli_options_for_yml_file} rm #{@config.command_options[:rm]}") do |type, data|
+          comm.sudo("#{@config.env_s} #{@config.executable_install_path} #{@config.options} #{cli_options_for_yml_file} rm #{@config.command_options[:rm]}") do |type, data|
             handle_comm(type, data)
           end
         end
@@ -29,7 +29,7 @@ module VagrantPlugins
       def up
         @machine.ui.detail(I18n.t(:docker_compose_up))
         @machine.communicate.tap do |comm|
-          comm.sudo("#{@config.executable_install_path} #{@config.options} #{cli_options_for_yml_file} up #{@config.command_options[:up]}") do |type, data|
+          comm.sudo("#{@config.env_s} #{@config.executable_install_path} #{@config.options} #{cli_options_for_yml_file} up #{@config.command_options[:up]}") do |type, data|
             handle_comm(type, data)
           end
         end
