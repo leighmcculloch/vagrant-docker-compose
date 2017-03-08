@@ -104,7 +104,7 @@ docker-compose --x-networking -f [yml] up -d --timeout 20
 ### Other configs
 
 * `yml` – one or more [Compose files](https://docs.docker.com/compose/compose-file/) (YAML), may be a `String` for a single file, or `Array` for multiple.
-* `compose_version` – defaults to `1.8.0`.
+* `compose_version` – defaults to `1.11.2`.
 * `project_name` – compose will default to naming the project `vagrant`.
 * `env` – a `Hash` of environment variables to value that are passed to the `docker-compose` commands, defaults to an empty `Hash`.
 * `executable_symlink_path` – the location the executable will be symlinked to, defaults to `/usr/local/bin/docker-compose`.

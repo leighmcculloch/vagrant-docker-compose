@@ -28,7 +28,7 @@ module VagrantPlugins
 
       def finalize!
         @project_name = nil if @project_name == UNSET_VALUE
-        @compose_version = "1.8.0" if @compose_version == UNSET_VALUE
+        @compose_version = "1.11.2" if @compose_version == UNSET_VALUE
         @env = {} if @env == UNSET_VALUE
         @executable_symlink_path = "/usr/local/bin/docker-compose" if @executable_symlink_path == UNSET_VALUE
         @executable_install_path = "#{@executable_symlink_path}-#{@compose_version}" if @executable_install_path == UNSET_VALUE
