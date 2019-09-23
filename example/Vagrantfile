@@ -8,7 +8,7 @@ unless Vagrant.has_plugin?("vagrant-docker-compose")
 end
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "hashicorp/precise64"
+  config.vm.box = "ubuntu/trusty64"
 
   port = 9090
 
