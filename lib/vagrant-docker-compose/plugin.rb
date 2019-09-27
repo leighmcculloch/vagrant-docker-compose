@@ -19,6 +19,16 @@ module VagrantPlugins
         Cap::Linux::DockerComposeInstalled
       end
 
+      guest_capability("linux", "docker_compose_get_info") do
+        require_relative "cap/linux/docker_compose_get_info"
+        Cap::Linux::DockerComposeGetInfo
+      end
+
+      guest_capability("linux", "docker_compose_upload") do
+        require_relative "cap/linux/docker_compose_upload"
+        Cap::Linux::DockerComposeUpload
+      end
+
       guest_capability("linux", "docker_compose_install") do
         require_relative "cap/linux/docker_compose_install"
         Cap::Linux::DockerComposeInstall
