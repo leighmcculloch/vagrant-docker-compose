@@ -22,4 +22,4 @@ COPY --from=builder /tmp/redis-stable/src/redis-cli /usr/local/bin/
 
 # Serve the date and a counter
 EXPOSE 8080
-CMD while true ; do nc -l -p 8080 -c 'echo "HTTP/1.1 200 OK\n\n$(date)\n$(redis-cli -h redis incr visit_counter)"' ; done
+CMD while true ; do nc -l -p 8080 -c 'echo "HTTP/1.1 200 OK\n\n$(date)\nVisit count: $(redis-cli -h redis incr visit_counter)"' ; done
