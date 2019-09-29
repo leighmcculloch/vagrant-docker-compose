@@ -2,41 +2,50 @@
 # vi: set ft=ruby :
 
 # ==============================================================================
-# This Vagrantfile is for testing the plugin. For an example of how to use the
-# plugin look at the Vagrantfile in the example directory.
+#
+# This Vagrantfile is for developing and testing the plugin. For an example of
+# how to use the plugin look at the Vagrantfile in the example directory.
+#
+# ==============================================================================
 #
 # If you are developing or contributing to this plugin you can use this
-# Vagrantfile. It is designed to be run inside a Docker container that is
-# already on a network called 'devenv'. The Vagrantfile tells Vagrant to start
-# the machine on the 'devenv' network, and to give the container's name
-# 'vagrant'. While portforwarding to the host for SSH still takes place it is
-# ignored and Vagrant connects directly to the SSH port on the 'vagrant'
-# container.
+# Vagrantfile. It supports being run automatically in two configurations:
 #
-# Before using this file you'll want to run this command to install vagrant as
-# a gem:
-#   bundle install
+# 1) Outside Docker, using Vagrant running on a host.
 #
-# To start vagrant it is important to always use bundle exec:
-#   bundle exec vagrant up
+# 2) Inside a Docker container that has access to the Docker socket and attached
+#    to a network named 'devenv'. Run the following commands inside the Docker
+#    container.
 #
-# To SSH into the container:
-#   bundle exec vagrant ssh
+# In both configurations you can start it up with:
 #
-# To delete the container when finished:
-#   bundle exec vagrant destroy -f
+#      bundle install
+#      bundle exec vagrant up
+#
+# All vagrant commands need to be prefixed with 'bundle exec'.
 #
 # ==============================================================================
 
+def inside_docker?
+  system("grep docker /proc/1/cgroup -qa")
+end
+
 Vagrant.configure("2") do |config|
+  inside_docker = inside_docker?
+
   config.vm.provider :docker do |d|
     d.image = "vagrant" # https://github.com/leighmcculloch/vagrant-docker-image
     d.has_ssh = true
-    d.create_args = ["--name=vagrant", "--network=devenv"]
+    d.create_args = [
+      "--name=vagrant",
+      ("--network=devenv" if inside_docker),
+    ].compact
   end
 
-  config.ssh.host = "vagrant"
-  config.ssh.port = 22
+  if inside_docker
+    config.ssh.host = "vagrant"
+    config.ssh.port = 22
+  end
 
   config.vm.provision :docker_compose, run: "always"
 end
