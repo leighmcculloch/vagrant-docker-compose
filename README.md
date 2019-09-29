@@ -16,7 +16,7 @@ vagrant plugin install vagrant-docker-compose
 
 ```ruby
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "ubuntu/bionic64"
 
   config.vm.provision :docker
   config.vm.provision :docker_compose
@@ -27,7 +27,7 @@ end
 
 ```ruby
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "ubuntu/bionic64"
 
   config.vm.provision :docker
   config.vm.provision :docker_compose, yml: "/vagrant/docker-compose.yml", run: "always"
@@ -44,7 +44,7 @@ docker-compose -f [yml] up -d
 
 ```ruby
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "ubuntu/bionic64"
 
   config.vm.provision :docker
   config.vm.provision :docker_compose,
@@ -67,7 +67,7 @@ docker-compose -f [yml-0] -f [yml-1] ... up -d
 
 ```ruby
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "ubuntu/bionic64"
 
   config.vm.provision :docker
   config.vm.provision :docker_compose, yml: "/vagrant/docker-compose.yml", rebuild: true, run: "always"
@@ -86,7 +86,7 @@ docker-compose -f [yml] up -d
 
 ```ruby
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "ubuntu/bionic64"
 
   config.vm.provision :docker
   config.vm.provision :docker_compose, yml: "/vagrant/docker-compose.yml", rebuild: true,
