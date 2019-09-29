@@ -1,0 +1,11 @@
+version: 2
+jobs:
+  build:
+    machine:
+      image: circleci/classic:latest
+    steps:
+      - checkout
+      - run: bundle install --path vendor/bundle
+      - run: docker build -t vagrant git@github.com:leighmcculloch/vagrant-docker-image
+      - run: bundle exec vagrant up
+      - run: bundle exec vagrant ssh -c 'docker-compose --version'

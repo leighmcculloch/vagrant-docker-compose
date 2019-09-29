@@ -1,5 +1,7 @@
 # Vagrant Provisioner: Docker Compose
 
+![CircleCI](https://img.shields.io/circleci/build/github/leighmcculloch/vagrant-docker-compose?style=for-the-badge)
+
 A Vagrant provisioner for [Docker Compose](https://docs.docker.com/compose/). Installs Docker Compose and can also bring up the containers defined by a [docker-compose.yml](https://docs.docker.com/compose/yml/).
 
 ## Install
