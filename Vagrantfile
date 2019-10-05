@@ -34,7 +34,7 @@ Vagrant.configure("2") do |config|
   inside_docker = inside_docker?
 
   config.vm.provider :docker do |d|
-    d.image = "vagrant" # https://github.com/leighmcculloch/vagrant-docker-image
+    d.image = "vagrant:debian10" # https://github.com/leighmcculloch/vagrant-docker-image
     d.has_ssh = true
     d.create_args = [
       "--name=vagrant",
