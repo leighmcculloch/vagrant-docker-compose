@@ -1,11 +1,30 @@
 version: 2
+
+commands:
+  bundle:
+    steps:
+      - run: bundle install --path vendor/bundle
+  test:
+    steps:
+      - run: bundle exec vagrant up
+      - run: bundle exec vagrant ssh -c 'docker-compose --version'
+
 jobs:
-  build:
+  test-debian10:
     machine:
       image: circleci/classic:latest
     steps:
+      - run: docker build -t vagrant:debian10 https://github.com/leighmcculloch/vagrant-docker-image.git#:debian10
+      - run: docker tag vagrant:debian10 vagrant:latest
       - checkout
-      - run: bundle install --path vendor/bundle
-      - run: docker build -t vagrant https://github.com/leighmcculloch/vagrant-docker-image.git#:debian10
-      - run: bundle exec vagrant up
-      - run: bundle exec vagrant ssh -c 'docker-compose --version'
+      - bundle
+      - test
+  test-centos7:
+    machine:
+      image: circleci/classic:latest
+    steps:
+      - run: docker build -t vagrant:centos7 https://github.com/leighmcculloch/vagrant-docker-image.git#:centos7
+      - run: docker tag vagrant:centos7 vagrant:latest
+      - checkout
+      - bundle
+      - test
