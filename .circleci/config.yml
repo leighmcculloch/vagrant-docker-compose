@@ -6,6 +6,6 @@ jobs:
     steps:
       - checkout
       - run: bundle install --path vendor/bundle
-      - run: docker build -t vagrant git@github.com:leighmcculloch/vagrant-docker-image
+      - run: docker build -t vagrant https://github.com/leighmcculloch/vagrant-docker-image.git#:debian10
       - run: bundle exec vagrant up
       - run: bundle exec vagrant ssh -c 'docker-compose --version'
