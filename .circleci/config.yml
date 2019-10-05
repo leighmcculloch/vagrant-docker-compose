@@ -1,6 +1,19 @@
-version: 2
+version: 2.1
+
+executors:
+  ubuntu1404:
+    machine:
+      image: circleci/classic:latest
 
 commands:
+  docker_build_debian10:
+    steps:
+      - run: docker build -t vagrant:debian10 https://github.com/leighmcculloch/vagrant-docker-image.git#:debian10
+      - run: docker tag vagrant:debian10 vagrant:latest
+  docker_build_centos7:
+    steps:
+      - run: docker build -t vagrant:centos7 https://github.com/leighmcculloch/vagrant-docker-image.git#:centos7
+      - run: docker tag vagrant:centos7 vagrant:latest
   bundle:
     steps:
       - run: bundle install --path vendor/bundle
@@ -10,21 +23,24 @@ commands:
       - run: bundle exec vagrant ssh -c 'docker-compose --version'
 
 jobs:
-  test-debian10:
-    machine:
-      image: circleci/classic:latest
+  host_ubuntu1404_guest_debian10:
+    executor: ubuntu1404
     steps:
-      - run: docker build -t vagrant:debian10 https://github.com/leighmcculloch/vagrant-docker-image.git#:debian10
-      - run: docker tag vagrant:debian10 vagrant:latest
+      - docker_build_debian10
       - checkout
       - bundle
       - test
-  test-centos7:
-    machine:
-      image: circleci/classic:latest
+  host_ubuntu1404_guest_centos7:
+    executor: ubuntu1404
     steps:
-      - run: docker build -t vagrant:centos7 https://github.com/leighmcculloch/vagrant-docker-image.git#:centos7
-      - run: docker tag vagrant:centos7 vagrant:latest
+      - docker_build_centos7
       - checkout
       - bundle
       - test
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - host_ubuntu1404_guest_debian10
+      - host_ubuntu1404_guest_centos7
