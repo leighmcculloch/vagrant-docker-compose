@@ -23,7 +23,7 @@ module VagrantPlugins
               f.write(contents)
             end
             sig = Digest::SHA256.file(local_tmp_path).hexdigest
-            @machine.ui.detail(I18n.t(:download_signature, version: @config.compose_version, sig: sig))
+            @machine.ui.detail(I18n.t(:download_signature, version: @config.compose_version, signature: sig))
 
             @machine.ui.detail(I18n.t(:uploading, version: @config.compose_version))
             remote_tmp_path = @machine.guest.capability(:docker_compose_upload, @config, local_tmp_path)
