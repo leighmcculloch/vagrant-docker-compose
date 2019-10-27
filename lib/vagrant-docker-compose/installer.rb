@@ -18,10 +18,12 @@ module VagrantPlugins
           remote_tmp_path = nil
           Dir.mktmpdir do |local_tmp_dir|
             local_tmp_path = File.join(local_tmp_dir, "docker-compose")
-            File.open(local_tmp_path, "w") do |f|
+            File.open(local_tmp_path, "wb") do |f|
               contents = fetch_file(url)
               f.write(contents)
             end
+            sig = Digest::SHA256.file(local_tmp_path).hexdigest
+            @machine.ui.detail(I18n.t(:downloaded_signature, version: @config.compose_version, signature: sig))
 
             @machine.ui.detail(I18n.t(:uploading, version: @config.compose_version))
             remote_tmp_path = @machine.guest.capability(:docker_compose_upload, @config, local_tmp_path)
