@@ -20,6 +20,7 @@ module VagrantPlugins
             local_tmp_path = File.join(local_tmp_dir, "docker-compose")
             File.open(local_tmp_path, "w") do |f|
               contents = fetch_file(url)
+              f.binmode
               f.write(contents)
             end
 
