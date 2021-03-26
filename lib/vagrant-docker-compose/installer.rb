@@ -44,7 +44,9 @@ module VagrantPlugins
       end
 
       def fetch_file(url)
-        response = Net::HTTP.get_response(URI(url))
+        uri      = URI(url)
+        request  = Net::HTTP.new(uri.host, uri.port)
+        response = request.get(uri)
         case response
         when Net::HTTPSuccess then
           return response.body
